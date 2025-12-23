@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Profile • Urban Waves</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        /* Background Image for Profile Page */
+        body {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.45;
+            z-index: -1;
+        }
+
+        /* Profile Specific Styles */
+        .profile-header {
+            background-color: transparent;
+            padding: 3rem 1rem;
+            border-bottom: none;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: transparent;
+            color: var(--accent);
+            border: 3px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0;
+            color: #000;
+        }
+
+        .profile-email {
+            color: #1f2937;
+            margin: 0.5rem 0 0 0;
+            font-weight: 500;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            /* Subtle border instead of shadow for a cleaner look */
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+
+        .profile-card:hover {
+            border-color: var(--brand);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .profile-card i {
+            width: 24px;
+            height: 24px;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-card h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .profile-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #374151;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .info-section {
+            margin-top: 3rem;
+        }
+
+        .info-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            color: #000;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .info-item label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #111827;
+            /* Darker than before */
+            font-weight: 800;
+            margin-bottom: 0.4rem;
+        }
+
+        .info-item div {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #000;
+        }
+
+
+
+        /* Footer Transparency */
+        #footer {
+            opacity: 0.95;
+            /* Base opacity */
+            background-color: rgba(13, 17, 23, 0.75) !important;
+            /* 75% opacity background */
+            backdrop-filter: blur(10px);
+        }
+
+        /* Logout Button Highlight */
+        .logout-btn {
+            transition: all 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #b91c1c !important;
+            color: white !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(185, 28, 28, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='dashboard.html'" style="cursor: pointer;">
+                <i data-lucide="shopping-bag"></i>
+                <span class="logo-word urban">URBAN</span>
+                <span class="logo-word waves">WAVES</span>
+            </div>
+
+            <nav class="nav-links">
+                <button onclick="window.location.href='dashboard.html'" title="Home"><i data-lucide="home"></i></button>
+                <button onclick="window.location.href='shop.html'" title="Shop"><i
+                        data-lucide="shopping-bag"></i></button>
+                <button onclick="window.location.href='dashboard.html#contact'" title="Contact"><i
+                        data-lucide="phone"></i></button>
+                <button onclick="window.location.href='cart.html'" title="Cart">
+                    <i data-lucide="shopping-cart"></i>
+                </button>
+                <button onclick="window.location.href='profile.html'" class="active" title="Profile">
+                    <i data-lucide="user"></i>
+                </button>
+            </nav>
+
+
+        </div>
+
+
+    </header>
+
+    <!-- CONTENT -->
+    <main>
+
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="container">
+                <div class="profile-avatar" id="avatarInitial">U</div>
+                <h1 class="profile-name" id="userName">Loading...</h1>
+                <p class="profile-email" id="userEmail">...</p>
+            </div>
+        </div>
+
+        <div class="container" style="padding-bottom: 4rem;">
+
+            <!-- Quick Actions Grid -->
+            <div class="profile-grid">
+                <div class="profile-card" onclick="window.location.href='orders.html'">
+                    <i data-lucide="package"></i>
+                    <h3>My Orders</h3>
+                    <p>Track your active orders and view order history.</p>
+                </div>
+
+                <div class="profile-card" onclick="window.location.href='cart.html'">
+                    <i data-lucide="shopping-cart"></i>
+                    <h3>Shopping Cart</h3>
+                    <p>View items in your cart and proceed to checkout.</p>
+                </div>
+
+                <div class="profile-card" onclick="window.location.href='settings.html'">
+                    <i data-lucide="settings"></i>
+                    <h3>Account Settings</h3>
+                    <p>Manage your preferences, password, and security.</p>
+                </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="info-section">
+                <h2 class="info-title">LOCATION</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Shipping Address</label>
+                        <div>
+                            <span id="houseNo">...</span>, <br>
+                            <span id="street">...</span>, <br>
+                            <span id="city">...</span> - <span id="pincode">...</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <label>Account Status</label>
+                        <div style="color: #047857; display: flex; align-items: center; gap: 0.5rem; font-weight: 700;">
+                            <i data-lucide="check-circle" style="width: 16px;"></i> Active Member
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logout Section -->
+            <div style="margin-top: 3rem; text-align: center;">
+                <button onclick="handleLogout()" class="btn-outline logout-btn"
+                    style="border-color: #b91c1c; color: #b91c1c; font-weight: 700;">
+                    Sign Out
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="footer" class="footer-dark">
+        <div class="container footer-grid">
+            <!-- Brand -->
+            <div>
+                <div class="footer-brand">
+                    <i data-lucide="shopping-bag"></i>
+                    <span>URBAN WAVES</span>
+                </div>
+                <p class="footer-desc">
+                    Elevating your wardrobe with timeless essentials and contemporary designs.
+                </p>
+            </div>
+            <!-- Shop -->
+            <div>
+                <h4>Shop</h4>
+                <ul>
+                    <li>New Arrivals</li>
+                    <li>Men</li>
+                    <li>Women</li>
+                    <li>Accessories</li>
+                </ul>
+            </div>
+            <!-- Support -->
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li onclick="window.location.href='dashboard.html#contact'">Contact Us</li>
+                    <li onclick="window.location.href='dashboard.html#terms'">Terms of Service</li>
+                    <li>Privacy Policy</li>
+                </ul>
+            </div>
+            <!-- App Buttons -->
+            <div>
+                <h4>Get our App</h4>
+                <p class="footer-desc">Shop on the go with our mobile app.</p>
+                <button class="app-btn">
+                    <i data-lucide="apple"></i>
+                    <div>
+                        <small>Download on the</small>
+                        <span>App Store</span>
+                    </div>
+                </button>
+                <button class="app-btn">
+                    <i data-lucide="play-circle"></i>
+                    <div>
+                        <small>Get it on</small>
+                        <span>Google Play</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 URBAN WAVES. All rights reserved.</p>
+            <div class="footer-social">
+                <i data-lucide="instagram"></i>
+                <i data-lucide="twitter"></i>
+                <i data-lucide="facebook"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (!isLoggedIn) {
+            window.location.href = 'login.html';
+        }
+
+        // Load user data from localStorage
+        function loadUserData() {
+            try {
+                const userDataStr = localStorage.getItem('userData');
+                if (!userDataStr) {
+                    console.log('No user data found');
+                    return;
+                }
+
+                const userData = JSON.parse(userDataStr);
+
+                // Load name
+                const nameEl = document.getElementById('userName');
+                const avatarEl = document.getElementById('avatarInitial');
+                if (nameEl) {
+                    nameEl.textContent = userData.name || 'User';
+                    if (avatarEl) {
+                        avatarEl.textContent = (userData.name || 'U').charAt(0).toUpperCase();
+                    }
+                }
+
+                // Load email
+                const emailEl = document.getElementById('userEmail');
+                if (emailEl) {
+                    emailEl.textContent = userData.email || 'No email provided';
+                }
+
+                // Load address
+                const updateField = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = value || 'Not provided';
+                };
+
+                if (userData.address) {
+                    if (typeof userData.address === 'object') {
+                        updateField('houseNo', userData.address.houseNo);
+                        updateField('street', userData.address.street);
+                        updateField('city', userData.address.city);
+                        updateField('pincode', userData.address.pincode);
+                    } else if (typeof userData.address === 'string') {
+                        // Backward compatibility
+                        const parts = userData.address.split(',').map(p => p.trim());
+                        updateField('houseNo', parts[0]);
+                        updateField('street', parts[1]);
+                        updateField('city', parts[2]);
+                        updateField('pincode', parts[3]);
+                    }
+                } else {
+                    updateField('houseNo', null);
+                    updateField('street', null);
+                    updateField('city', null);
+                    updateField('pincode', null);
+                }
+
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
+
+
+
+        // Handle logout
+        window.handleLogout = function () {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('isLoggedIn');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Initialize icons
+        lucide.createIcons();
+
+        // Load data on start
+        window.addEventListener('DOMContentLoaded', loadUserData);
+        loadUserData(); // Immediate call in case DOM is already ready
+    </script>
+
+</body>
+
+</html>

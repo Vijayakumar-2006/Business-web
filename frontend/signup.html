@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Sign Up • Only Clothes</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+
+    <!-- SIGNUP PAGE WRAPPER -->
+    <div class="form-page signup-bg">
+
+
+        <div class="form-container signup-form">
+
+            <h2>Create Your Account</h2>
+            <p class="form-subtitle">Join Only Clothes for exclusive access.</p>
+
+            <form class="form-box" id="signupForm">
+
+                <div class="input-group">
+                    <i data-lucide="user"></i>
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+
+                <div class="input-group">
+                    <i data-lucide="mail"></i>
+                    <input type="email" placeholder="Email" required>
+                </div>
+
+                <div class="input-group">
+                    <i data-lucide="map-pin"></i>
+                    <input type="text" id="signupHouseNo" placeholder="House No" required>
+                </div>
+
+                <div class="input-group">
+                    <i data-lucide="map-pin"></i>
+                    <input type="text" id="signupStreet" placeholder="Street/Colony" required>
+                </div>
+
+                <div class="input-group">
+                    <i data-lucide="map-pin"></i>
+                    <input type="text" id="signupCity" placeholder="City" required>
+                </div>
+
+                <div class="input-group">
+                    <i data-lucide="map-pin"></i>
+                    <input type="text" id="signupPincode" placeholder="Pincode" required>
+                </div>
+
+                <div class="input-group">
+                    <i data-lucide="lock"></i>
+                    <input type="password" placeholder="Password" required>
+                </div>
+
+                <button type="submit" class="btn-primary full-width">Create Account</button>
+
+            </form>
+
+            <p class="form-footer">
+                Already have an account?
+                <a href="login.html">Log In</a>
+            </p>
+        </div>
+
+    </div>
+
+    <script src="scripts/app.js"></script>
+    <script>
+        lucide.createIcons();
+
+        const signupForm = document.getElementById('signupForm');
+
+        // Handle signup form submission — send to backend API (fallback to localStorage on error)
+        signupForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const name = form.querySelector('input[placeholder="Full Name"]').value.trim();
+            const email = form.querySelector('input[type="email"]').value.trim().toLowerCase();
+            const password = form.querySelector('input[type="password"]').value;
+            const houseNo = form.querySelector('#signupHouseNo').value.trim();
+            const street = form.querySelector('#signupStreet').value.trim();
+            const city = form.querySelector('#signupCity').value.trim();
+            const pincode = form.querySelector('#signupPincode').value.trim();
+
+            // Validate required fields
+            if (!name || !email || !password) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            const payload = {
+                name,
+                email,
+                password,
+                location: {
+                    houseNo: houseNo || '',
+                    street: street || '',
+                    city: city || '',
+                    pincode: pincode || ''
+                }
+            };
+
+            try {
+                const res = await fetch('http://localhost:5000/api/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Signup failed');
+
+                // Store user data with address in the format expected by profile.html
+                const userData = {
+                    name: data.user.name || name,
+                    email: data.user.email || email,
+                    password: '', // Don't store password for security
+                    address: {
+                        houseNo: houseNo || '',
+                        street: street || '',
+                        city: city || '',
+                        pincode: pincode || ''
+                    }
+                };
+
+                localStorage.setItem('userData', JSON.stringify(userData));
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', email);
+                showToast('Account created — redirecting...');
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 700);
+            } catch (err) {
+                // If backend not reachable, fallback to previous localStorage behavior
+                console.warn('Signup API error:', err.message);
+                const userData = {
+                    name: name,
+                    email: email,
+                    password: '', // Don't store password for security
+                    address: {
+                        houseNo: houseNo || '',
+                        street: street || '',
+                        city: city || '',
+                        pincode: pincode || ''
+                    }
+                };
+                localStorage.setItem('userData', JSON.stringify(userData));
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', email);
+                showToast('Account created — redirecting...');
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 700);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

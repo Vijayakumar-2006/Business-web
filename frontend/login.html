@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+
+	<title>Log In • URBAN WAVES</title>
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+	<!-- Lucide Icons -->
+	<script src="https://unpkg.com/lucide@latest"></script>
+
+	<!-- External CSS -->
+	<link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+
+	<div class="form-page signup-bg">
+
+		<div class="form-container signup-form">
+
+			<h2>Welcome Back</h2>
+			<p class="form-subtitle">Log in to your account</p>
+
+			<form id="loginForm" class="form-box">
+
+				<div class="input-group">
+					<i data-lucide="mail"></i>
+					<input type="email" placeholder="Email" required>
+				</div>
+
+				<div class="input-group">
+					<i data-lucide="lock"></i>
+					<input type="password" placeholder="Password" required>
+				</div>
+
+				<button type="submit" class="btn-primary full-width">Log In</button>
+
+			</form>
+
+			<p class="form-footer">
+				Don't have an account? <a href="signup.html">Sign Up</a>
+			</p>
+		</div>
+
+	</div>
+
+	<script src="scripts/app.js"></script>
+	<script>
+		lucide.createIcons();
+
+		document.getElementById('loginForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+
+			const form = e.target;
+			const email = (form.querySelector('input[type="email"]').value || '').trim().toLowerCase();
+			const password = form.querySelector('input[type="password"]').value || '';
+
+			// Try backend first
+			try {
+				const res = await fetch('http://localhost:5000/api/login', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ email, password })
+				});
+
+				const data = await res.json();
+				if (!res.ok) throw new Error(data.error || 'Login failed');
+
+				// Store user data in the format expected by profile.html
+				const userData = {
+					name: data.user.name || '',
+					email: data.user.email || email,
+					password: '' // Don't store password for security
+				};
+
+				// Use location from database if available, otherwise check localStorage
+				if (data.user.location) {
+					// Convert database location format to address format for frontend
+					userData.address = {
+						houseNo: data.user.location.houseNo || '',
+						street: data.user.location.street || '',
+						city: data.user.location.city || '',
+						pincode: data.user.location.pincode || ''
+					};
+				} else {
+					// Fallback: Check if there's existing userData with address info
+					const existingUserData = localStorage.getItem('userData');
+					if (existingUserData) {
+						try {
+							const existing = JSON.parse(existingUserData);
+							// If existing data has same email, preserve address info
+							if (existing.email && existing.email.toLowerCase() === email.toLowerCase()) {
+								userData.address = existing.address;
+							}
+						} catch (e) {
+							// Ignore parse errors
+						}
+					}
+				}
+
+				localStorage.setItem('userData', JSON.stringify(userData));
+				localStorage.setItem('isLoggedIn', 'true');
+				localStorage.setItem('currentUser', email);
+				showToast('Login successful — redirecting...');
+				setTimeout(() => window.location.href = 'dashboard.html', 600);
+				return;
+			} catch (err) {
+				console.warn('Login API error:', err.message);
+				// Fallback to client-side stored users
+			}
+
+			// Fallback: try localStorage formats
+			const candidates = ['userData', 'users', 'usersData', 'user', 'currentUserData'];
+			let storedRaw = null;
+			for (const k of candidates) {
+				const v = localStorage.getItem(k);
+				if (v) { storedRaw = v; break; }
+			}
+
+			if (!storedRaw) {
+				alert('No account found. Please sign up first.');
+				window.location.href = 'signup.html';
+				return;
+			}
+
+			let parsed;
+			try { parsed = JSON.parse(storedRaw); } catch (e) { parsed = storedRaw; }
+
+			if (typeof parsed === 'string') {
+				if (parsed.toLowerCase() === email && password.length > 0) {
+					// Create userData from string format
+					const userData = {
+						name: '',
+						email: email,
+						password: ''
+					};
+					localStorage.setItem('userData', JSON.stringify(userData));
+					localStorage.setItem('isLoggedIn', 'true');
+					localStorage.setItem('currentUser', email);
+					window.location.href = 'dashboard.html';
+					return;
+				}
+				alert('No matching account found.');
+				return;
+			}
+
+			let users = [];
+			if (Array.isArray(parsed)) users = parsed;
+			else if (parsed && parsed.email) users = [parsed];
+			else users = Object.values(parsed).filter(v => v && v.email);
+
+			const match = users.find(u => (u.email || '').toLowerCase() === email);
+			if (!match) { alert('No account found for that email.'); window.location.href = 'signup.html'; return; }
+			if ((match.password || '') === password) {
+				// Store full user data in the format expected by profile.html
+				const userData = {
+					name: match.name || '',
+					email: match.email || email,
+					password: '' // Don't store password for security
+				};
+
+				// Preserve address if it exists
+				if (match.address) {
+					userData.address = match.address;
+				} else if (match.houseNo || match.street || match.city || match.pincode) {
+					// Handle address fields if stored separately
+					userData.address = {
+						houseNo: match.houseNo || '',
+						street: match.street || '',
+						city: match.city || '',
+						pincode: match.pincode || ''
+					};
+				}
+
+				localStorage.setItem('userData', JSON.stringify(userData));
+				localStorage.setItem('isLoggedIn', 'true');
+				localStorage.setItem('currentUser', email);
+				window.location.href = 'dashboard.html';
+			} else {
+				alert('Incorrect password.');
+			}
+		});
+	</script>
+
+</body>
+
+</html>

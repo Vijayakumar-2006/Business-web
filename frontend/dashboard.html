@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Dashboard • Urban Waves</title>
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        /* Contact Section Background */
+        #contact {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        #contact::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.45;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism for Contact Card */
+        .contact-card {
+            background: rgba(255, 255, 255, 0.65) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-option {
+            background: rgba(255, 255, 255, 0.5) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="showView('home')" style="cursor: pointer;">
+                <i data-lucide="shopping-bag"></i>
+                <span class="logo-word urban">URBAN</span>
+                <span class="logo-word waves">WAVES</span>
+            </div>
+
+            <nav class="nav-links">
+                <button type="button" data-view="home" onclick="showView('home')" title="Home"><i
+                        data-lucide="home"></i></button>
+                <button type="button" onclick="window.location.href='shop.html'" title="Shop"><i
+                        data-lucide="shopping-bag"></i></button>
+                <button type="button" data-view="contact" onclick="showView('contact')" title="Contact"><i
+                        data-lucide="phone"></i></button>
+                <button type="button" onclick="window.location.href='cart.html'" title="Cart">
+                    <i data-lucide="shopping-cart"></i>
+                </button>
+                <button type="button" onclick="window.location.href='profile.html'" title="Profile">
+                    <i data-lucide="user"></i>
+                </button>
+            </nav>
+
+
+        </div>
+
+
+    </header>
+
+    <!-- DASHBOARD PAGE -->
+    <main>
+        <!-- HOME PAGE -->
+        <section id="home" class="view active">
+            <div class="hero">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=80"
+                    alt="Hero">
+                <div class="hero-content">
+                    <h1>URBAN WAVES</h1>
+                    <p>Redefining style, one thread at a time.</p>
+
+                    <div class="hero-buttons">
+                        <button class="btn-light" onclick="window.location.href='shop.html'">Shop Collection</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img
+                            src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80">
+                        <h3>Essential Cotton Tee</h3>
+                    </div>
+
+                    <div class="product-card">
+                        <img
+                            src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80">
+                        <h3>Summer Floral Dress</h3>
+                    </div>
+
+                    <div class="product-card">
+                        <img
+                            src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&w=900&q=80">
+                        <h3>Urban Denim Jacket</h3>
+                    </div>
+
+                    <div class="product-card">
+                        <img
+                            src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=80">
+                        <h3>Classic Chinos</h3>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Offer Section -->
+            <div class="container">
+                <div class="offer-section">
+                    <div class="offer-content">
+                        <h2 class="offer-title">Exclusive Offers</h2>
+                        <div class="offer-grid">
+                            <div class="offer-box">
+                                <div class="offer-percent">10% OFF</div>
+                                <div class="offer-cond">On orders above ₹5,000</div>
+                            </div>
+                            <div class="offer-box">
+                                <div class="offer-percent">20% OFF</div>
+                                <div class="offer-cond">On orders above ₹15,000</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SHOP PAGE -->
+        <section id="shop" class="view">
+            <div class="section">
+                <h2>Shop Collection</h2>
+                <p>Discover our latest fashion trends and timeless essentials.</p>
+
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Essential Cotton Tee">
+                        <h3>Essential Cotton Tee</h3>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Summer Floral Dress">
+                        <h3>Summer Floral Dress</h3>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
+                            alt="Urban Denim Jacket">
+                        <h3>Urban Denim Jacket</h3>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Classic Chinos">
+                        <h3>Classic Chinos</h3>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Casual Cargo Pants">
+                        <h3>Casual Cargo Pants</h3>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Leather Jacket">
+                        <h3>Leather Jacket</h3>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Classic T-Shirt">
+                        <h3>Classic T-Shirt</h3>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Classic Hoodie">
+                        <h3>Classic Hoodie</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT PAGE -->
+        <section id="contact" class="view">
+            <div class="section narrow">
+                <h2>Get in Touch</h2>
+
+                <div class="contact-card">
+                    <div class="contact-description">
+                        <p>Have a question about your order or our products? We're here to help. Reach out to us via
+                            email or phone.</p>
+                    </div>
+
+                    <div class="contact-options">
+                        <div class="contact-option email-option">
+                            <div class="contact-icon email-icon">
+                                <i data-lucide="mail"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Email Us</h3>
+                                <p class="contact-availability">Our support team is available 24/7</p>
+                                <a href="mailto:urbanwaves@gmail.com" class="contact-link">urbanwaves@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-option phone-option">
+                            <div class="contact-icon phone-icon">
+                                <i data-lucide="phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Call Us</h3>
+                                <p class="contact-availability">Mon-Fri from 9am to 6pm</p>
+                                <a href="tel:+917892306007" class="contact-link phone-link">+91 xxxxxxxxxx</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="follow-us">
+                        <h3>Follow Us</h3>
+                        <div class="social-icons">
+                            <div class="social-icon">
+                                <i data-lucide="instagram"></i>
+                            </div>
+                            <div class="social-icon">
+                                <i data-lucide="facebook"></i>
+                            </div>
+                            <div class="social-icon">
+                                <i data-lucide="twitter"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TERMS AND CONDITIONS PAGE -->
+        <section id="terms" class="view">
+            <div class="section narrow">
+                <div class="terms-card">
+                    <div class="terms-hero">
+                        <div class="terms-icon">
+                            <i data-lucide="file-text"></i>
+                        </div>
+                        <h2>Terms and Conditions</h2>
+                        <p>Please read our agreement carefully.</p>
+                    </div>
+
+                    <div class="terms-body">
+                        <div class="terms-item">
+                            <div class="terms-step">1</div>
+                            <div class="terms-content">
+                                <h3>Introduction</h3>
+                                <p>Welcome to URBAN WAVES. By accessing our website and purchasing our products, you
+                                    agree to be bound by the following terms and conditions. Please read them carefully
+                                    before making a purchase.</p>
+                            </div>
+                        </div>
+
+                        <div class="terms-item">
+                            <div class="terms-step">2</div>
+                            <div class="terms-content">
+                                <h3>Products & Availability</h3>
+                                <p>We strive to display the colors and images of our products as accurately as possible.
+                                    However, we cannot guarantee that your computer monitor's display of any color will
+                                    be accurate. All products are subject to availability, and we reserve the right to
+                                    limit the quantity of products we supply.</p>
+                            </div>
+                        </div>
+
+                        <div class="terms-item">
+                            <div class="terms-step">3</div>
+                            <div class="terms-content">
+                                <h3>Shipping & Delivery</h3>
+                                <p>Orders are typically processed within 24-48 hours. Delivery times vary by location
+                                    but generally take between 3 to 7 business days within India. URBAN WAVES is not
+                                    responsible for delays caused by the courier service.</p>
+                            </div>
+                        </div>
+
+                        <div class="terms-item">
+                            <div class="terms-step">4</div>
+                            <div class="terms-content">
+                                <h3>Returns & Refunds</h3>
+                                <p>Items can be returned within 7 days of delivery if they are unworn, unwashed, and
+                                    have the original tags attached. Refunds will be processed to the original payment
+                                    method within 5-7 business days after we receive the return.</p>
+                            </div>
+                        </div>
+
+                        <div class="terms-item">
+                            <div class="terms-step">5</div>
+                            <div class="terms-content">
+                                <h3>Contact Information</h3>
+                                <p>Questions about the Terms of Service should be sent to us at our contact email
+                                    provided on the contact page.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terms-footer">
+                        <p>Last Updated: December 2025</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="footer" class="footer-dark">
+        <div class="container footer-grid">
+
+            <!-- Brand -->
+            <div>
+                <div class="footer-brand">
+                    <i data-lucide="shopping-bag"></i>
+                    <span>URBAN WAVES</span>
+                </div>
+                <p class="footer-desc">
+                    Elevating your wardrobe with timeless essentials and
+                    contemporary designs.
+                </p>
+            </div>
+
+            <!-- Shop -->
+            <div>
+                <h4>Shop</h4>
+                <ul>
+                    <li>New Arrivals</li>
+                    <li>Men</li>
+                    <li>Women</li>
+                    <li>Accessories</li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li onclick="showView('contact')">Contact Us</li>
+                    <li onclick="showView('terms')">Terms of Service</li>
+                    <li>Privacy Policy</li>
+                    <li>Shipping Info</li>
+                </ul>
+            </div>
+
+            <!-- App Buttons -->
+            <div>
+                <h4>Get our App</h4>
+                <p class="footer-desc">Shop on the go with our mobile app.</p>
+
+                <button class="app-btn">
+                    <i data-lucide="apple"></i>
+                    <div>
+                        <small>Download on the</small>
+                        <span>App Store</span>
+                    </div>
+                </button>
+
+                <button class="app-btn">
+                    <i data-lucide="play-circle"></i>
+                    <div>
+                        <small>Get it on</small>
+                        <span>Google Play</span>
+                    </div>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <p>© 2025 URBAN WAVES. All rights reserved.</p>
+
+            <div class="footer-social">
+                <i data-lucide="instagram"></i>
+                <i data-lucide="twitter"></i>
+                <i data-lucide="facebook"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/app.js"></script>
+    <script>
+        // Prevent app.js redirect logic from interfering on dashboard page
+        if (typeof checkDashboardRedirect === 'function') {
+            // Override hash change listener to prevent redirects
+            window.removeEventListener('hashchange', checkDashboardRedirect);
+        }
+
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (!isLoggedIn) {
+            window.location.href = 'login.html';
+        }
+
+        // Immediate check: If somehow on index.html while logged in, redirect to dashboard
+        if (isLoggedIn) {
+            const currentUrl = window.location.href;
+            const currentPath = window.location.pathname;
+            if (currentUrl.includes('index.html') || (currentPath && currentPath.includes('index.html'))) {
+                window.location.href = 'dashboard.html';
+            }
+        }
+
+        // Global protection: Prevent navigation to index.html while logged in
+        // This ensures users stay in their account area until they logout
+        (function () {
+            let isLoggingOut = false;
+
+            // Intercept all clicks on links/buttons that go to index.html
+            document.addEventListener('click', function (e) {
+                // Skip if already logging out
+                if (isLoggingOut) return;
+
+                const target = e.target.closest('a, button, [onclick]');
+                if (!target) return;
+
+                const href = target.getAttribute('href') || '';
+                const onclick = target.getAttribute('onclick') || '';
+                const onclickFunc = target.onclick?.toString() || '';
+
+                // Check if this is a logout action
+                if (onclick.includes('handleLogout') || onclick.includes('logout') ||
+                    onclickFunc.includes('handleLogout') || onclickFunc.includes('logout')) {
+                    isLoggingOut = true;
+                    return; // Allow logout to proceed
+                }
+
+                // Check if trying to navigate to index.html
+                if (href.includes('index.html') || onclick.includes('index.html') ||
+                    onclickFunc.includes('index.html')) {
+                    // Prevent navigation to index.html
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+
+                    // Redirect back to dashboard
+                    if (!window.location.href.includes('dashboard.html') &&
+                        !window.location.href.includes('profile.html')) {
+                        window.location.href = 'dashboard.html';
+                    }
+                    return false;
+                }
+            }, true); // Use capture phase to catch early
+
+            // Monitor for navigation attempts to index.html
+            const originalPushState = history.pushState;
+            const originalReplaceState = history.replaceState;
+
+            history.pushState = function () {
+                const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                if (isLoggedIn && !isLoggingOut) {
+                    const url = arguments[2];
+                    if (url && url.includes('index.html')) {
+                        window.location.href = 'dashboard.html';
+                        return;
+                    }
+                }
+                return originalPushState.apply(history, arguments);
+            };
+
+            history.replaceState = function () {
+                const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                if (isLoggedIn && !isLoggingOut) {
+                    const url = arguments[2];
+                    if (url && url.includes('index.html')) {
+                        window.location.href = 'dashboard.html';
+                        return;
+                    }
+                }
+                return originalReplaceState.apply(history, arguments);
+            };
+
+            // Check on hash change
+            window.addEventListener('hashchange', function () {
+                const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                if (isLoggedIn && !isLoggingOut && window.location.href.includes('index.html')) {
+                    window.location.href = 'dashboard.html';
+                } else if (isLoggedIn && window.location.href.includes('dashboard.html')) {
+                    // Handle hash navigation for dashboard views
+                    if (typeof window.handleHashNavigation === 'function') {
+                        window.handleHashNavigation();
+                    }
+                }
+            });
+        })();
+
+
+
+        // Handle hash-based navigation to show correct view
+        window.handleHashNavigation = function () {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && typeof showView === 'function') {
+                // Valid views: home, shop, contact, terms
+                const validViews = ['home', 'shop', 'contact', 'terms'];
+                if (validViews.includes(hash)) {
+                    showView(hash);
+                } else {
+                    showView('home');
+                }
+            } else if (typeof showView === 'function') {
+                showView('home');
+            }
+        };
+
+        // Ensure showView function works - initialize views if needed
+        if (typeof showView === 'function') {
+            // Handle hash navigation on page load
+            window.handleHashNavigation();
+        } else {
+            // Fallback: create a simple showView function for dashboard
+            window.showView = function (id) {
+                const views = document.querySelectorAll('.view');
+                views.forEach(v => {
+                    if (v.id === id) {
+                        v.classList.remove('hidden');
+                        v.classList.add('fade-up');
+                        void v.offsetWidth; // Reflow for animation
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        v.classList.add('hidden');
+                    }
+                });
+
+                // Update active nav buttons
+                const navButtons = document.querySelectorAll('button[data-view]');
+                navButtons.forEach(btn => {
+                    if (btn.dataset.view === id) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+
+
+
+                // Re-render icons
+                try { lucide.createIcons(); } catch (e) { }
+            };
+        }
+
+        // Scroll to section function - kept for backward compatibility (not used anymore)
+        function scrollToSection(sectionId, event) {
+            // Always prevent default and stop propagation
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+            }
+
+            // Force check - ensure we're on dashboard page
+            const currentUrl = window.location.href;
+            const currentPath = window.location.pathname;
+
+            // If we're on index.html, immediately redirect to dashboard
+            if (currentUrl.includes('index.html') || currentPath.includes('index.html')) {
+                window.location.href = 'dashboard.html';
+                return false;
+            }
+
+            // Only proceed if we're definitely on dashboard.html
+            if (!currentUrl.includes('dashboard.html') && !currentPath.includes('dashboard.html')) {
+                // Not on dashboard, redirect there
+                window.location.href = 'dashboard.html';
+                return false;
+            }
+
+            // Now safely scroll to section
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const headerOffset = 80; // Account for fixed navbar
+                const elementPosition = section.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                // Use requestAnimationFrame for smoother scrolling
+                requestAnimationFrame(() => {
+                    window.scrollTo({
+                        top: Math.max(0, offsetPosition),
+                        behavior: 'smooth'
+                    });
+                });
+
+
+            } else {
+                console.warn('Section not found:', sectionId);
+                // If section not found, just scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Prevent any further navigation
+            return false;
+        }
+
+        // Initialize icons
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

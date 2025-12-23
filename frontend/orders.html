@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Orders • Urban Waves</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        /* Background Image */
+        body {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.45;
+            z-index: -1;
+        }
+
+        .orders-page {
+            min-height: 100vh;
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
+
+        .orders-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #111827;
+        }
+
+        .back-btn:hover {
+            background: #fff;
+            transform: translateX(-3px);
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .order-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.2s;
+        }
+
+        .order-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .order-id {
+            font-weight: 700;
+            color: #111827;
+            font-size: 1.1rem;
+        }
+
+        .order-date {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .order-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-delivered {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-processing {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-shipped {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .order-items {
+            margin-bottom: 16px;
+        }
+
+        .order-item-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #374151;
+        }
+
+        .order-item-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .item-qty {
+            color: #6b7280;
+            font-size: 0.85rem;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .order-total-label {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .order-total-amount {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+        }
+
+        .empty-icon {
+            width: 64px;
+            height: 64px;
+            color: #9ca3af;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='dashboard.html'" style="cursor: pointer;">
+                <i data-lucide="shopping-bag"></i>
+                <span class="logo-word urban">URBAN</span>
+                <span class="logo-word waves">WAVES</span>
+            </div>
+
+            <nav class="nav-links">
+                <button onclick="window.location.href='dashboard.html'" title="Home"><i data-lucide="home"></i></button>
+                <button onclick="window.location.href='shop.html'" title="Shop"><i
+                        data-lucide="shopping-bag"></i></button>
+                <button onclick="window.location.href='dashboard.html#contact'" title="Contact"><i
+                        data-lucide="phone"></i></button>
+                <button onclick="window.location.href='cart.html'" title="Cart">
+                    <i data-lucide="shopping-cart"></i>
+                </button>
+                <button onclick="window.location.href='profile.html'" title="Profile">
+                    <i data-lucide="user"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="orders-page">
+        <div class="orders-container">
+
+            <div class="page-header">
+                <button class="back-btn" onclick="window.location.href='profile.html'">
+                    <i data-lucide="arrow-left"></i>
+                </button>
+                <h1 class="page-title">My Orders</h1>
+            </div>
+
+            <div id="ordersList" class="orders-list">
+                <!-- Orders will be populated here -->
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="footer" class="footer-dark">
+        <div class="container footer-grid">
+            <!-- Brand -->
+            <div>
+                <div class="footer-brand">
+                    <i data-lucide="shopping-bag"></i>
+                    <span>URBAN WAVES</span>
+                </div>
+                <p class="footer-desc">
+                    Elevating your wardrobe with timeless essentials and contemporary designs.
+                </p>
+            </div>
+            <!-- Shop -->
+            <div>
+                <h4>Shop</h4>
+                <ul>
+                    <li>New Arrivals</li>
+                    <li>Men</li>
+                    <li>Women</li>
+                    <li>Accessories</li>
+                </ul>
+            </div>
+            <!-- Support -->
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li onclick="window.location.href='dashboard.html#contact'">Contact Us</li>
+                    <li onclick="window.location.href='dashboard.html#terms'">Terms of Service</li>
+                    <li>Privacy Policy</li>
+                </ul>
+            </div>
+            <!-- App Buttons -->
+            <div>
+                <h4>Get our App</h4>
+                <p class="footer-desc">Shop on the go with our mobile app.</p>
+                <button class="app-btn">
+                    <i data-lucide="apple"></i>
+                    <div>
+                        <small>Download on the</small>
+                        <span>App Store</span>
+                    </div>
+                </button>
+                <button class="app-btn">
+                    <i data-lucide="play-circle"></i>
+                    <div>
+                        <small>Get it on</small>
+                        <span>Google Play</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 URBAN WAVES. All rights reserved.</p>
+            <div class="footer-social">
+                <i data-lucide="instagram"></i>
+                <i data-lucide="twitter"></i>
+                <i data-lucide="facebook"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check if logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (!isLoggedIn) {
+            window.location.href = 'login.html';
+        }
+
+        // Initialize icons
+        lucide.createIcons();
+
+        // Load Orders
+        // Note: Currently we don't have a checkout process saving to 'orders', 
+        // so we'll mock some data if none exists OR show an empty state.
+        // In a real app, this would fetch from backend or localStorage 'orders' array.
+
+        function loadOrders() {
+            const container = document.getElementById('ordersList');
+            const currentUser = localStorage.getItem('currentUser');
+            let allOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+
+            // Filter orders for current user
+            const userOrders = allOrders.filter(order => order.userEmail === currentUser);
+
+            // DEMO: If no real orders and user just wants to see the page structure, 
+            // we can uncomment this block to show dummy data, 
+            // OR just show empty state. Let's show empty state by default unless verified.
+
+            /* 
+            // Uncomment to Mock Data for testing UI
+            if (userOrders.length === 0) {
+                 userOrders.push({
+                     id: '#ORD-7782A',
+                     date: 'Dec 15, 2025',
+                     status: 'Delivered',
+                     total: '₹2,499',
+                     items: [
+                         { name: 'Plain T-Shirt', quantity: 2 },
+                         { name: 'Classic Chinos', quantity: 1 }
+                     ]
+                 });
+                 userOrders.push({
+                     id: '#ORD-9921B',
+                     date: 'Dec 20, 2025',
+                     status: 'Processing',
+                     total: '₹1,599',
+                     items: [
+                         { name: 'Casual Jacket', quantity: 1 }
+                     ]
+                 });
+            }
+            */
+
+            if (userOrders.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i data-lucide="package-search" class="empty-icon"></i>
+                        <h3>No orders yet</h3>
+                        <p style="color: #6b7280; margin-bottom: 20px;">looks like you haven't placed any orders yet.</p>
+                        <button class="btn-primary" onclick="window.location.href='shop.html'">Start Shopping</button>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            // Render Orders
+            container.innerHTML = userOrders.map(order => `
+                <div class="order-card" style="display: flex; gap: 24px; align-items: stretch; padding: 20px;">
+                    <!-- Left: Large Cover Image (First Item) -->
+                    <div style="width: 140px; flex-shrink: 0; display: flex;">
+                        <img src="${order.items[0].image}" alt="Order Cover" 
+                             style="width: 100%; height: 100%; min-height: 140px; object-fit: cover; border-radius: 12px; border: 1px solid #f3f4f6;"
+                             onerror="this.src='https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=100&q=80'">
+                    </div>
+
+                    <!-- Middle: Order Items & Status -->
+                    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+                            <span class="order-status status-${order.status.toLowerCase()}" style="font-size: 0.8rem; padding: 4px 10px;">
+                                ${getStatusIcon(order.status)}
+                                ${order.status}
+                            </span>
+                            <span class="order-date" style="font-size: 0.85rem;">${order.date}</span>
+                        </div>
+
+                        <div class="order-items-list" style="display: flex; flex-direction: column; gap: 10px;">
+                            ${order.items.map(item => `
+                                <div style="display: flex; flex-direction: column;">
+                                    <div style="font-weight: 600; font-size: 1rem; color: #111827;">
+                                        ${item.quantity}x ${item.name}
+                                    </div>
+                                    ${item.size ? `<div style="font-size: 0.85rem; color: #6b7280;">Size: ${item.size}</div>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Right: Order ID, Total, Actions -->
+                    <div style="text-align: right; min-width: 140px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end;">
+                        <div>
+                            <div class="order-id" style="font-size: 1.1rem; color: #374151; margin-bottom: 4px;">${order.id}</div>
+                            <div class="order-total-amount" style="font-size: 1.25rem; color: #000;">${order.total}</div>
+                        </div>
+
+                        <button class="delete-order-btn" onclick="cancelOrder('${order.id}')" title="Cancel Order" 
+                                style="background: #fff0f0; border: 1px solid #ffcccc; cursor: pointer; color: #dc2626; display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 8px; transition: all 0.2s; font-size: 0.85rem; font-weight: 600;">
+                            <i data-lucide="trash-2" style="width: 15px; height: 15px;"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        function cancelOrder(orderId) {
+            if (confirm('Are you sure you want to cancel this order? This cannot be undone.')) {
+                let allOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+                allOrders = allOrders.filter(order => order.id !== orderId);
+                localStorage.setItem('orders', JSON.stringify(allOrders));
+                loadOrders();
+
+                // Show toast if available (assuming app.js)
+                if (typeof showToast === 'function') {
+                    showToast('Order cancelled successfully');
+                } else {
+                    alert('Order cancelled successfully');
+                }
+            }
+        }
+
+        function getStatusIcon(status) {
+            const s = status.toLowerCase();
+            if (s === 'delivered') return '<i data-lucide="check-circle" style="width:14px; height:14px;"></i>';
+            if (s === 'processing') return '<i data-lucide="loader" style="width:14px; height:14px;"></i>';
+            if (s === 'shipped') return '<i data-lucide="truck" style="width:14px; height:14px;"></i>';
+            return '';
+        }
+
+        loadOrders();
+
+    </script>
+</body>
+
+</html>

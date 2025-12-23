@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Settings • Urban Waves</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='dashboard.html'">
+                <i data-lucide="shopping-bag"></i>
+                <span class="logo-word urban">URBAN</span>
+                <span class="logo-word waves">WAVES</span>
+            </div>
+
+            <nav class="nav-links">
+                <button onclick="window.location.href='dashboard.html'" title="Home"><i data-lucide="home"></i></button>
+                <button onclick="window.location.href='shop.html'" title="Shop"><i
+                        data-lucide="shopping-bag"></i></button>
+                <button onclick="window.location.href='dashboard.html#contact'" title="Contact"><i
+                        data-lucide="phone"></i></button>
+                <button onclick="window.location.href='cart.html'" title="Cart">
+                    <i data-lucide="shopping-cart"></i>
+                </button>
+                <button onclick="window.location.href='profile.html'" class="active" title="Profile">
+                    <i data-lucide="user"></i>
+                </button>
+            </nav>
+
+
+        </div>
+
+
+    </header>
+
+    <!-- SETTINGS PAGE WRAPPER -->
+    <main class="settings-page">
+        <div class="form-page signup-bg">
+            <div class="form-container signup-form">
+                <h2>Account Settings</h2>
+
+                <div class="account-card settings-card">
+                    <div class="account-list">
+                        <div class="account-list-item" id="editProfileItem" onclick="openEditProfileModal()">
+                            <div class="settings-item-icon">
+                                <i data-lucide="user"></i>
+                            </div>
+                            <div class="account-list-main">
+                                <span class="account-list-label">Edit Profile</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="account-list-arrow"></i>
+                        </div>
+
+
+
+                        <div class="account-list-item" id="editAddressItem" onclick="openEditAddressModal()">
+                            <div class="settings-item-icon">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div class="account-list-main">
+                                <span class="account-list-label">Saved Addresses</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="account-list-arrow"></i>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <p class="form-footer" style="margin-top: 16px;">
+                    Want to go back? <a href="profile.html">Return to Profile</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Edit Profile Modal -->
+        <div id="editProfileModal" class="settings-modal">
+            <div class="settings-modal-backdrop"></div>
+            <div class="settings-modal-dialog">
+                <div class="settings-modal-header">
+                    <h3>Edit Profile</h3>
+                    <button class="settings-modal-close" id="closeEditProfile">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <form id="editProfileForm" class="settings-modal-body">
+                    <label class="settings-field-label" for="editName">Change name</label>
+                    <input type="text" id="editName" class="settings-input" placeholder="Enter new name" required>
+
+                    <label class="settings-field-label" for="editPassword">Change password</label>
+                    <input type="password" id="editPassword" class="settings-input" placeholder="Enter new password"
+                        required>
+
+                    <button type="submit" class="btn-primary full-width" style="margin-top: 14px;">
+                        Save changes
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Address Modal -->
+        <div id="editAddressModal" class="settings-modal">
+            <div class="settings-modal-backdrop"></div>
+            <div class="settings-modal-dialog">
+                <div class="settings-modal-header">
+                    <h3>Edit Address</h3>
+                    <button class="settings-modal-close" id="closeEditAddress">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <form id="editAddressForm" class="settings-modal-body">
+                    <label class="settings-field-label" for="editHouseNo">House/Flat No.</label>
+                    <input type="text" id="editHouseNo" class="settings-input" placeholder="Enter house/flat number">
+
+                    <label class="settings-field-label" for="editStreet">Street</label>
+                    <input type="text" id="editStreet" class="settings-input" placeholder="Enter street name">
+
+                    <label class="settings-field-label" for="editCity">City</label>
+                    <input type="text" id="editCity" class="settings-input" placeholder="Enter city" required>
+
+                    <label class="settings-field-label" for="editPincode">Pincode</label>
+                    <input type="text" id="editPincode" class="settings-input" placeholder="Enter pincode" required>
+
+                    <button type="submit" class="btn-primary full-width" style="margin-top: 14px;">
+                        Save address
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="footer" class="footer-dark">
+        <div class="container footer-grid">
+
+            <!-- Brand -->
+            <div>
+                <div class="footer-brand">
+                    <i data-lucide="shopping-bag"></i>
+                    <span>URBAN WAVES</span>
+                </div>
+                <p class="footer-desc">
+                    Elevating your wardrobe with timeless essentials and
+                    contemporary designs.
+                </p>
+            </div>
+
+            <!-- Shop -->
+            <div>
+                <h4>Shop</h4>
+                <ul>
+                    <li>New Arrivals</li>
+                    <li>Men</li>
+                    <li>Women</li>
+                    <li>Accessories</li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li onclick="window.location.href='dashboard.html#contact'">Contact Us</li>
+                    <li onclick="window.location.href='dashboard.html#terms'">Terms of Service</li>
+                    <li>Privacy Policy</li>
+                    <li>Shipping Info</li>
+                </ul>
+            </div>
+
+            <!-- App Buttons -->
+            <div>
+                <h4>Get our App</h4>
+                <p class="footer-desc">Shop on the go with our mobile app.</p>
+
+                <button class="app-btn">
+                    <i data-lucide="apple"></i>
+                    <div>
+                        <small>Download on the</small>
+                        <span>App Store</span>
+                    </div>
+                </button>
+
+                <button class="app-btn">
+                    <i data-lucide="play-circle"></i>
+                    <div>
+                        <small>Get it on</small>
+                        <span>Google Play</span>
+                    </div>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <p>© 2025 URBAN WAVES. All rights reserved.</p>
+
+            <div class="footer-social">
+                <i data-lucide="instagram"></i>
+                <i data-lucide="twitter"></i>
+                <i data-lucide="facebook"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/app.js"></script>
+    <script>
+        // Redirect to login if user is not logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (!isLoggedIn) {
+            window.location.href = 'login.html';
+        }
+
+
+
+        // Initialize icons
+        lucide.createIcons();
+
+        // Edit Profile modal logic
+        const editProfileItem = document.getElementById('editProfileItem');
+        const editProfileModal = document.getElementById('editProfileModal');
+        const closeEditProfile = document.getElementById('closeEditProfile');
+        const editProfileForm = document.getElementById('editProfileForm');
+        const editNameInput = document.getElementById('editName');
+        const editPasswordInput = document.getElementById('editPassword');
+
+        // Edit Address modal logic
+        const editAddressItem = document.getElementById('editAddressItem');
+        const editAddressModal = document.getElementById('editAddressModal');
+        const closeEditAddress = document.getElementById('closeEditAddress');
+        const editAddressForm = document.getElementById('editAddressForm');
+        const editHouseNoInput = document.getElementById('editHouseNo');
+        const editStreetInput = document.getElementById('editStreet');
+        const editCityInput = document.getElementById('editCity');
+        const editPincodeInput = document.getElementById('editPincode');
+
+        function openEditProfileModal() {
+            try {
+                const userDataStr = localStorage.getItem('userData');
+                if (userDataStr) {
+                    const userData = JSON.parse(userDataStr);
+                    editNameInput.value = userData.name || '';
+                } else {
+                    editNameInput.value = '';
+                }
+                editPasswordInput.value = '';
+            } catch (e) {
+                console.error('Error loading user data for edit profile:', e);
+            }
+
+            if (editProfileModal) {
+                editProfileModal.classList.add('show');
+            }
+        }
+
+        function closeEditProfileModal() {
+            if (editProfileModal) {
+                editProfileModal.classList.remove('show');
+            }
+        }
+
+        if (editProfileItem) {
+            editProfileItem.addEventListener('click', openEditProfileModal);
+        }
+
+        if (closeEditProfile) {
+            closeEditProfile.addEventListener('click', closeEditProfileModal);
+        }
+
+        // Close when clicking on backdrop
+        if (editProfileModal) {
+            editProfileModal.addEventListener('click', function (e) {
+                if (e.target.classList.contains('settings-modal-backdrop')) {
+                    closeEditProfileModal();
+                }
+            });
+        }
+
+        // Expose open function globally for onclick handler
+        window.openEditProfileModal = openEditProfileModal;
+
+        function openEditAddressModal() {
+            try {
+                const userDataStr = localStorage.getItem('userData');
+                if (userDataStr) {
+                    const userData = JSON.parse(userDataStr);
+                    if (userData.address) {
+                        editHouseNoInput.value = userData.address.houseNo || '';
+                        editStreetInput.value = userData.address.street || '';
+                        editCityInput.value = userData.address.city || '';
+                        editPincodeInput.value = userData.address.pincode || '';
+                    } else {
+                        editHouseNoInput.value = '';
+                        editStreetInput.value = '';
+                        editCityInput.value = '';
+                        editPincodeInput.value = '';
+                    }
+                } else {
+                    editHouseNoInput.value = '';
+                    editStreetInput.value = '';
+                    editCityInput.value = '';
+                    editPincodeInput.value = '';
+                }
+            } catch (e) {
+                console.error('Error loading user data for edit address:', e);
+            }
+
+            if (editAddressModal) {
+                editAddressModal.classList.add('show');
+            }
+        }
+
+        function closeEditAddressModal() {
+            if (editAddressModal) {
+                editAddressModal.classList.remove('show');
+            }
+        }
+
+        if (editAddressItem) {
+            editAddressItem.addEventListener('click', openEditAddressModal);
+        }
+
+        if (closeEditAddress) {
+            closeEditAddress.addEventListener('click', closeEditAddressModal);
+        }
+
+        // Close when clicking on backdrop
+        if (editAddressModal) {
+            editAddressModal.addEventListener('click', function (e) {
+                if (e.target.classList.contains('settings-modal-backdrop')) {
+                    closeEditAddressModal();
+                }
+            });
+        }
+
+        // Expose open function globally for onclick handler
+        window.openEditAddressModal = openEditAddressModal;
+
+        if (editAddressForm) {
+            editAddressForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const houseNo = editHouseNoInput.value.trim();
+                const street = editStreetInput.value.trim();
+                const city = editCityInput.value.trim();
+                const pincode = editPincodeInput.value.trim();
+
+                if (!city || !pincode) {
+                    alert('Please enter at least city and pincode.');
+                    return;
+                }
+
+                try {
+                    // Get current user email from localStorage
+                    const userDataStr = localStorage.getItem('userData');
+                    if (!userDataStr) {
+                        alert('User not found. Please login again.');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    const userData = JSON.parse(userDataStr);
+                    const email = userData.email;
+
+                    if (!email) {
+                        alert('User email not found. Please login again.');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    // Prepare location data
+                    const location = {
+                        houseNo: houseNo || '',
+                        street: street || '',
+                        city: city || '',
+                        pincode: pincode || ''
+                    };
+
+                    // Update in database via API
+                    try {
+                        const res = await fetch('http://localhost:5000/api/update-profile', {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                email: email,
+                                location: location
+                            })
+                        });
+
+                        const data = await res.json();
+
+                        if (!res.ok) {
+                            throw new Error(data.error || 'Failed to update address');
+                        }
+
+                        // Update localStorage with new address data
+                        userData.address = location;
+                        localStorage.setItem('userData', JSON.stringify(userData));
+
+                        if (typeof showToast === 'function') {
+                            showToast('Address updated successfully');
+                        } else {
+                            alert('Address updated successfully');
+                        }
+
+                        // Reload the page to reflect changes
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 500);
+                    } catch (apiError) {
+                        console.error('API error:', apiError);
+                        // Fallback to localStorage only if API fails
+                        userData.address = location;
+                        localStorage.setItem('userData', JSON.stringify(userData));
+
+                        alert('Address updated locally, but database update failed: ' + apiError.message);
+                    }
+                } catch (e) {
+                    console.error('Error saving edited address:', e);
+                    alert('Something went wrong. Please try again.');
+                }
+
+                closeEditAddressModal();
+            });
+        }
+
+        if (editProfileForm) {
+            editProfileForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const newName = editNameInput.value.trim();
+                const newPassword = editPasswordInput.value.trim();
+
+                if (!newName) {
+                    alert('Please enter a name.');
+                    return;
+                }
+
+                try {
+                    // Get current user email from localStorage
+                    const userDataStr = localStorage.getItem('userData');
+                    if (!userDataStr) {
+                        alert('User not found. Please login again.');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    const userData = JSON.parse(userDataStr);
+                    const email = userData.email;
+
+                    if (!email) {
+                        alert('User email not found. Please login again.');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    // Prepare update data
+                    const updateData = {
+                        email: email,
+                        name: newName
+                    };
+
+                    // Only include password if user entered something
+                    if (newPassword && newPassword.trim() !== '') {
+                        updateData.password = newPassword;
+                    }
+
+                    // Update in database via API
+                    try {
+                        const res = await fetch('http://localhost:5000/api/update-profile', {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(updateData)
+                        });
+
+                        const data = await res.json();
+
+                        if (!res.ok) {
+                            throw new Error(data.error || 'Failed to update profile');
+                        }
+
+                        // Update localStorage with new data
+                        userData.name = newName;
+                        localStorage.setItem('userData', JSON.stringify(userData));
+
+                        if (typeof showToast === 'function') {
+                            showToast('Profile updated successfully');
+                        } else {
+                            alert('Profile updated successfully');
+                        }
+
+                        // Reload the page to reflect changes
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 500);
+                    } catch (apiError) {
+                        console.error('API error:', apiError);
+                        // Fallback to localStorage only if API fails
+                        userData.name = newName;
+                        if (newPassword) {
+                            userData.password = newPassword;
+                        }
+                        localStorage.setItem('userData', JSON.stringify(userData));
+
+                        alert('Profile updated locally, but database update failed: ' + apiError.message);
+                    }
+                } catch (e) {
+                    console.error('Error saving edited profile:', e);
+                    alert('Something went wrong. Please try again.');
+                }
+
+                closeEditProfileModal();
+            });
+        }
+    </script>
+</body>
+
+</html>

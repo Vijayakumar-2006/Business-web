@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Shop • Urban Waves</title>
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        /* Background Image */
+        body {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.45;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Product Cards Transparency */
+        .product-card {
+            background: rgba(255, 255, 255, 0.5) !important;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        /* Footer Transparency */
+        #footer {
+            opacity: 0.95;
+            background-color: rgba(13, 17, 23, 0.75) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Images Opacity */
+        /* Images Opacity */
+        .product-card img {
+            opacity: 0.75;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero img {
+            opacity: 1 !important;
+        }
+
+        .product-card:hover img {
+            opacity: 1;
+            /* Restore opacity on hover for better UX */
+        }
+
+        /* Product Detail Modal Transparency */
+        .product-detail-dialog {
+            background: rgba(255, 255, 255, 0.75) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Hero Text Visibility */
+        /* Hero Text Visibility */
+        .hero .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            font-style: italic;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            color: #ffffff !important;
+            opacity: 1 !important;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .hero-content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 600;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+            color: rgba(255, 255, 255, 0.95) !important;
+            opacity: 1 !important;
+        }
+
+        /* Section Text Visibility */
+        .section p {
+            color: #000000 !important;
+            font-weight: 700 !important;
+            opacity: 1 !important;
+        }
+
+        .section h2 {
+            color: #000000 !important;
+            font-weight: 900 !important;
+            opacity: 1 !important;
+        }
+
+        /* Product Card Text Darkening (exclude Footer) */
+        .product-card p,
+        .product-card h3 {
+            color: #000000 !important;
+            opacity: 1 !important;
+            text-shadow: none !important;
+        }
+
+        .product-card h3 {
+            font-weight: 900 !important;
+        }
+
+        .product-card p {
+            font-weight: 700 !important;
+        }
+
+        .product-card .product-price {
+            color: #000000 !important;
+            font-weight: 900 !important;
+        }
+
+        /* Size Selector Styles */
+        .product-detail-size {
+            margin-bottom: 20px;
+        }
+
+        .product-detail-size label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .size-select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #374151;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .size-select:focus {
+            outline: none;
+            border-color: #111827;
+        }
+
+        .size-select:hover {
+            border-color: #9ca3af;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='dashboard.html'">
+                <i data-lucide="shopping-bag"></i>
+                <span class="logo-word urban">URBAN</span>
+                <span class="logo-word waves">WAVES</span>
+            </div>
+
+            <nav class="nav-links">
+                <button onclick="window.location.href='dashboard.html'" title="Home"><i data-lucide="home"></i></button>
+                <button onclick="window.location.href='shop.html'" class="active" title="Shop"><i
+                        data-lucide="shopping-bag"></i></button>
+                <button onclick="window.location.href='dashboard.html#contact'" title="Contact"><i
+                        data-lucide="phone"></i></button>
+                <button onclick="window.location.href='cart.html'" title="Cart">
+                    <i data-lucide="shopping-cart"></i>
+                </button>
+                <button onclick="window.location.href='profile.html'" title="Profile">
+                    <i data-lucide="user"></i>
+                </button>
+            </nav>
+
+
+        </div>
+
+
+    </header>
+
+    <!-- SHOP PAGE -->
+    <main>
+        <section class="section">
+            <div class="hero">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80"
+                    alt="Shop Hero">
+                <div class="hero-content">
+                    <h1>Shop Collection</h1>
+                    <p>Discover our latest fashion trends and timeless essentials.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>All Products</h2>
+                <p>Browse through our complete collection of stylish clothing and accessories.</p>
+
+                <div class="product-grid">
+                    <!-- Essential Collection -->
+                    <div class="product-card"
+                        onclick="openProductDetail('Plain T-Shirt', '₹199', 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Essential Cotton Tee">
+                        <h3>Plain T-Shirt</h3>
+                        <p class="product-price">₹199</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Summer Floral Dress', '₹1,299', 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Summer Floral Dress">
+                        <h3>Summer Floral Dress</h3>
+                        <p class="product-price">₹1,299</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Urban Denim Jacket', '₹2,499', 'https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80')">
+                        <img src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
+                            alt="Urban Denim Jacket">
+                        <h3>Urban Denim Jacket</h3>
+                        <p class="product-price">₹2,499</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Classic Chinos', '₹1,199', 'https://theadultman.com/wp-content/uploads/2020/02/Mizzen-Main-Performance-Chino-in-Black-Model-on-Staircase-Black-Polished-Shoe.jpg?auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://theadultman.com/wp-content/uploads/2020/02/Mizzen-Main-Performance-Chino-in-Black-Model-on-Staircase-Black-Polished-Shoe.jpg?auto=format&fit=crop&w=800&q=80"
+                            alt="Classic Chinos">
+                        <h3>Classic Chinos</h3>
+                        <p class="product-price">₹1,199</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Casual Cargo Pants', '₹1,499', 'https://coofandy.com/cdn/shop/products/SYV002836_LT-2.jpg?v=1685010388?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://coofandy.com/cdn/shop/products/SYV002836_LT-2.jpg?v=1685010388?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Casual Cargo Pants">
+                        <h3>Casual Cargo Pants</h3>
+                        <p class="product-price">₹1,499</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Leather Jacket', '₹2,499', 'https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Leather Jacket">
+                        <h3>Leather Jacket</h3>
+                        <p class="product-price">₹2,499</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Classic T-Shirt', '₹499', 'https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Classic T-Shirt">
+                        <h3>Classic T-Shirt</h3>
+                        <p class="product-price">₹499</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Classic Hoodie', '₹1,799', 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Classic Hoodie">
+                        <h3>Classic Hoodie</h3>
+                        <p class="product-price">₹1,799</p>
+                    </div>
+
+                    <!-- Additional Products -->
+                    <div class="product-card"
+                        onclick="openProductDetail('Slim Fit Jeans', '₹899', 'https://images.bewakoof.com/t1080/men-s-blue-slim-fit-jeans-536121-1660308682-3.JPG?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.bewakoof.com/t1080/men-s-blue-slim-fit-jeans-536121-1660308682-3.JPG?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Slim Fit Jeans">
+                        <h3>Slim Fit Jeans</h3>
+                        <p class="product-price">₹899</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Knit maxi dress.', '₹1,299', 'https://images.unsplash.com/photo-1594633313593-bab3825d0caf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1594633313593-bab3825d0caf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Formal Shirt">
+                        <h3>Knit maxi dress.</h3>
+                        <p class="product-price">₹1,299</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Pastel Pink Maxi Dress', '₹2,299', 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Pastel Pink Maxi Dress">
+                        <h3>Pink Maxi Dress</h3>
+                        <p class="product-price">₹2,299</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Casual Shorts', '₹799', 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=800&q=80"
+                            alt="Casual Shorts">
+                        <h3>Casual Shorts</h3>
+                        <p class="product-price">₹799</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Casual Jacket', '₹2,199', 'https://i.pinimg.com/1200x/9b/68/14/9b6814ab4ea603641233ee7f1e4f4bef.jpg')">
+                        <img src="https://i.pinimg.com/1200x/9b/68/14/9b6814ab4ea603641233ee7f1e4f4bef.jpg?auto=format&fit=crop&w=800&q=80"
+                            alt="Casual Jacket">
+                        <h3>Casual Jacket</h3>
+                        <p class="product-price">₹2,199</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Bodycon Cutout ', '₹2,999', 'https://i.pinimg.com/736x/c8/e5/8d/c8e58d860be1c209010b851a4c3e6bb3.jpg?auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://i.pinimg.com/736x/c8/e5/8d/c8e58d860be1c209010b851a4c3e6bb3.jpg?auto=format&fit=crop&w=800&q=80"
+                            alt="Bodycon Cutout">
+                        <h3>Bodycon Cutout </h3>
+                        <p class="product-price">₹2,999</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Cotton Kurta Set', '₹1,499', 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/e/m/embroidered-cotton-dhoti-kurta-in-navy-blue-v1-mve2954.jpg?auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/e/m/embroidered-cotton-dhoti-kurta-in-navy-blue-v1-mve2954.jpg?auto=format&fit=crop&w=800&q=80"
+                            alt="Cotton Kurta Set">
+                        <h3>Cotton Kurta Set</h3>
+                        <p class="product-price">₹1,499</p>
+                    </div>
+
+                    <div class="product-card"
+                        onclick="openProductDetail('Designer Kurti', '₹1,599', 'https://images.unsplash.com/photo-1741847639057-b51a25d42892?auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1741847639057-b51a25d42892?auto=format&fit=crop&w=800&q=80"
+                            alt="Designer Kurti">
+                        <h3>Designer Kurti</h3>
+                        <p class="product-price">₹1,599</p>
+                    </div>
+                    <div class="product-card"
+                        onclick="openProductDetail('Navy Pleated Midi Skirt', '₹1,099', 'https://media.littlewoods.com/i/littlewoods/W7LEO_SQ1_0000000048_NAVY_MDf?$pdp_300x400_x2$&fmt=jpg?auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://media.littlewoods.com/i/littlewoods/W7LEO_SQ1_0000000048_NAVY_MDf?$pdp_300x400_x2$&fmt=jpg?auto=format&fit=crop&w=800&q=80"
+                            alt="Skirt">
+                        <h3>Midi Skirt</h3>
+                        <p class="product-price">₹1,099</p>
+                    </div>
+                    <div class="product-card"
+                        onclick="openProductDetail('Navy Blue Super Baggy Fit Cargo', '₹999', 'https://m.media-amazon.com/images/I/61EZA5CDoqL._SX679_.jpg?auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://m.media-amazon.com/images/I/61EZA5CDoqL._SX679_.jpg?auto=format&fit=crop&w=800&q=80"
+                            alt="Denim cargo">
+                        <h3>Denim cargo</h3>
+                        <p class="product-price">₹999</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div id="productDetailModal" class="product-detail-modal">
+        <div class="product-detail-backdrop"></div>
+        <div class="product-detail-dialog">
+            <button class="product-detail-close" id="closeProductDetail">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="product-detail-content">
+                <!-- Left Half - Image -->
+                <div class="product-detail-image-section">
+                    <img id="productDetailImage" src="" alt="Product Image">
+                </div>
+
+                <!-- Right Half - Details -->
+                <div class="product-detail-info-section">
+                    <h2 id="productDetailName" class="product-detail-name"></h2>
+                    <p id="productDetailPrice" class="product-detail-price"></p>
+
+                    <!-- Size Selector -->
+                    <div class="product-detail-size">
+                        <label for="productSize">Size:</label>
+                        <select id="productSize" class="size-select">
+                            <option value="26">26</option>
+                            <option value="28">28</option>
+                            <option value="30">30</option>
+                            <option value="32">32</option>
+                            <option value="34">34</option>
+                            <option value="36">36</option>
+                            <option value="38">38</option>
+                            <option value="40">40</option>
+                            <option value="42">42</option>
+                        </select>
+                    </div>
+
+                    <!-- Quantity Selector -->
+                    <div class="product-detail-quantity">
+                        <label for="productQuantity">Quantity:</label>
+                        <div class="quantity-controls">
+                            <button type="button" class="quantity-btn" id="decreaseQty">-</button>
+                            <input type="number" id="productQuantity" value="1" min="1" max="10">
+                            <button type="button" class="quantity-btn" id="increaseQty">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Add to Cart Button -->
+                    <button class="btn-primary full-width" id="addToCartBtn" style="margin-top: 20px;">
+                        <i data-lucide="shopping-cart"></i>
+                        Add to Cart
+                    </button>
+
+                    <!-- Comment Section -->
+                    <div class="product-detail-comments" style="margin-top: 30px;">
+                        <h3>Comments</h3>
+                        <div id="commentsList" class="comments-list">
+                            <!-- Comments will be displayed here -->
+                        </div>
+                        <div class="comment-form">
+                            <textarea id="commentInput" placeholder="Write a comment..." rows="3"></textarea>
+                            <button type="button" class="btn-primary" id="submitComment" style="margin-top: 10px;">Post
+                                Comment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footer" class="footer-dark">
+        <div class="container footer-grid">
+
+            <!-- Brand -->
+            <div>
+                <div class="footer-brand">
+                    <i data-lucide="shopping-bag"></i>
+                    <span>URBAN WAVES</span>
+                </div>
+                <p class="footer-desc">
+                    Elevating your wardrobe with timeless essentials and
+                    contemporary designs.
+                </p>
+            </div>
+
+            <!-- Shop -->
+            <div>
+                <h4>Shop</h4>
+                <ul>
+                    <li>New Arrivals</li>
+                    <li>Men</li>
+                    <li>Women</li>
+                    <li>Accessories</li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li onclick="window.location.href='dashboard.html#contact'">Contact Us</li>
+                    <li onclick="window.location.href='dashboard.html#terms'">Terms of Service</li>
+                    <li>Privacy Policy</li>
+                    <li>Shipping Info</li>
+                </ul>
+            </div>
+
+            <!-- App Buttons -->
+            <div>
+                <h4>Get our App</h4>
+                <p class="footer-desc">Shop on the go with our mobile app.</p>
+
+                <button class="app-btn">
+                    <i data-lucide="apple"></i>
+                    <div>
+                        <small>Download on the</small>
+                        <span>App Store</span>
+                    </div>
+                </button>
+
+                <button class="app-btn">
+                    <i data-lucide="play-circle"></i>
+                    <div>
+                        <small>Get it on</small>
+                        <span>Google Play</span>
+                    </div>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <p>© 2025 URBAN WAVES. All rights reserved.</p>
+
+            <div class="footer-social">
+                <i data-lucide="instagram"></i>
+                <i data-lucide="twitter"></i>
+                <i data-lucide="facebook"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/app.js"></script>
+    <script>
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (!isLoggedIn) {
+            window.location.href = 'login.html';
+        }
+
+
+
+        // Initialize icons
+        lucide.createIcons();
+
+        // Handle image loading errors - replace with fallback images
+        document.addEventListener('DOMContentLoaded', function () {
+            const images = document.querySelectorAll('.product-card img');
+            images.forEach(img => {
+                img.addEventListener('error', function () {
+                    // Fallback to a working clothing image
+                    this.src = 'https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=800&q=80';
+                    this.alt = 'Product Image';
+                });
+            });
+        });
+
+        // Product Detail Modal Functions
+        let currentProduct = null;
+        let currentQuantity = 1;
+
+        function openProductDetail(name, price, image) {
+            currentProduct = { name, price, image };
+            currentQuantity = 1;
+
+            document.getElementById('productDetailName').textContent = name;
+            document.getElementById('productDetailPrice').textContent = price;
+            document.getElementById('productDetailImage').src = image;
+            document.getElementById('productQuantity').value = 1;
+            document.getElementById('productSize').value = '26'; // Reset to default size
+            document.getElementById('commentInput').value = '';
+
+            // Load comments from localStorage
+            loadComments(name);
+
+            document.getElementById('productDetailModal').classList.add('show');
+            lucide.createIcons();
+        }
+
+        function closeProductDetail() {
+            document.getElementById('productDetailModal').classList.remove('show');
+            currentProduct = null;
+        }
+
+        // Quantity controls
+        document.getElementById('increaseQty').addEventListener('click', function () {
+            const qtyInput = document.getElementById('productQuantity');
+            const current = parseInt(qtyInput.value) || 1;
+            if (current < 10) {
+                qtyInput.value = current + 1;
+                currentQuantity = qtyInput.value;
+            }
+        });
+
+        document.getElementById('decreaseQty').addEventListener('click', function () {
+            const qtyInput = document.getElementById('productQuantity');
+            const current = parseInt(qtyInput.value) || 1;
+            if (current > 1) {
+                qtyInput.value = current - 1;
+                currentQuantity = qtyInput.value;
+            }
+        });
+
+        document.getElementById('productQuantity').addEventListener('change', function () {
+            const value = parseInt(this.value) || 1;
+            if (value < 1) this.value = 1;
+            if (value > 10) this.value = 10;
+            currentQuantity = this.value;
+        });
+
+        // Add to Cart
+        document.getElementById('addToCartBtn').addEventListener('click', function () {
+            if (!currentProduct) return;
+
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const product = {
+                name: currentProduct.name,
+                price: currentProduct.price,
+                image: currentProduct.image,
+                quantity: parseInt(currentQuantity),
+                size: document.getElementById('productSize').value
+            };
+
+            // Check if product already in cart (same name AND same size)
+            const existingIndex = cart.findIndex(item => item.name === product.name && item.size === product.size);
+            if (existingIndex >= 0) {
+                cart[existingIndex].quantity += product.quantity;
+                // Ensure quantity doesn't exceed 10
+                if (cart[existingIndex].quantity > 10) {
+                    cart[existingIndex].quantity = 10;
+                }
+            } else {
+                cart.push(product);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            if (typeof showToast === 'function') {
+                showToast('Added to cart!');
+            } else {
+                alert('Product added to cart!');
+            }
+
+            // Close modal after adding to cart
+            setTimeout(() => {
+                closeProductDetail();
+            }, 500);
+        });
+
+        // Comments functionality
+        function loadComments(productName) {
+            const comments = JSON.parse(localStorage.getItem('productComments') || '{}');
+            const productComments = comments[productName] || [];
+            const commentsList = document.getElementById('commentsList');
+
+            commentsList.innerHTML = '';
+            if (productComments.length === 0) {
+                commentsList.innerHTML = '<p style="color: #999; font-style: italic;">No comments yet. Be the first to comment!</p>';
+            } else {
+                productComments.forEach(comment => {
+                    const commentDiv = document.createElement('div');
+                    commentDiv.className = 'comment-item';
+                    commentDiv.innerHTML = `
+                        <p class="comment-text">${comment.text}</p>
+                        <small class="comment-date">${comment.date}</small>
+                    `;
+                    commentsList.appendChild(commentDiv);
+                });
+            }
+        }
+
+        document.getElementById('submitComment').addEventListener('click', function () {
+            const commentText = document.getElementById('commentInput').value.trim();
+            if (!commentText || !currentProduct) return;
+
+            const comments = JSON.parse(localStorage.getItem('productComments') || '{}');
+            if (!comments[currentProduct.name]) {
+                comments[currentProduct.name] = [];
+            }
+
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const userName = userData.name || 'Anonymous';
+
+            comments[currentProduct.name].push({
+                text: commentText,
+                author: userName,
+                date: new Date().toLocaleDateString()
+            });
+
+            localStorage.setItem('productComments', JSON.stringify(comments));
+            document.getElementById('commentInput').value = '';
+            loadComments(currentProduct.name);
+        });
+
+        // Close modal handlers
+        document.getElementById('closeProductDetail').addEventListener('click', closeProductDetail);
+        document.getElementById('productDetailModal').addEventListener('click', function (e) {
+            if (e.target.classList.contains('product-detail-backdrop')) {
+                closeProductDetail();
+            }
+        });
+
+        // Expose function globally
+        window.openProductDetail = openProductDetail;
+    </script>
+
+</body>
+
+</html>

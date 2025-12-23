@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Payment • Urban Waves</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        body {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.45;
+            z-index: -1;
+        }
+
+        .payment-page {
+            min-height: 100vh;
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
+
+        .payment-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .payment-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .total-amount {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+        }
+
+        .total-amount span {
+            display: block;
+            color: #6b7280;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .total-amount strong {
+            display: block;
+            font-size: 2rem;
+            color: #059669;
+            margin-top: 5px;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .payment-option-btn {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid transparent;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-option-btn i {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            color: #4b5563;
+        }
+
+        .payment-option-btn div {
+            flex: 1;
+        }
+
+        .payment-option-btn h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #111827;
+        }
+
+        .payment-option-btn p {
+            margin: 4px 0 0 0;
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .payment-option-btn.selected {
+            border-color: #000;
+            background: #f9fafb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='dashboard.html'">
+                <i data-lucide="shopping-bag"></i>
+                <span class="logo-word urban">URBAN</span>
+                <span class="logo-word waves">WAVES</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="payment-page">
+        <div class="payment-container">
+            <div class="payment-card">
+                <h1>Select Payment Method</h1>
+
+                <div class="total-amount">
+                    <span>Total Amount to Pay</span>
+                    <strong id="displayTotal">...</strong>
+                </div>
+
+                <div class="payment-options">
+                    <button class="payment-option-btn" onclick="selectPayment('card')">
+                        <i data-lucide="credit-card"></i>
+                        <div>
+                            <h3>Debit / Credit Card</h3>
+                            <p>Pay securely with your bank card</p>
+                        </div>
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+
+                    <button class="payment-option-btn" onclick="selectPayment('cod')">
+                        <i data-lucide="banknote"></i>
+                        <div>
+                            <h3>Cash on Delivery</h3>
+                            <p>Pay with cash upon arrival</p>
+                        </div>
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="scripts/app.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Calculate total again from localStorage to ensure accuracy
+        function getCartTotal() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            let subtotal = 0;
+            cart.forEach(item => {
+                const price = parseFloat(item.price.replace(/[₹,]/g, ''));
+                subtotal += price * item.quantity;
+            });
+
+            // Discount Logic (Same as Cart)
+            let discount = 0;
+            if (subtotal > 15000) {
+                discount = (subtotal * 0.20);
+            } else if (subtotal > 5000) {
+                discount = (subtotal * 0.10);
+            }
+
+            // Shipping Logic (Same as Cart)
+            let shipping = 0;
+            if (subtotal < 200 && subtotal > 0) {
+                shipping = Math.round(subtotal * 0.25); // Updated to 25% for <200 per latest user request which was 0.25 in previous step? Wait, step 399 shows 0.25?
+                // Wait, User Request 393 said "from 200 to 500 bill add shipping charge 15%"
+                // User Request 399 diff shows changing 0.20 to 0.25 for <200.
+                // I should mirror exactly what is in cart.html now.
+                // Let's re-read the diff of Step 399.
+                // - shipping = Math.round(subtotal * 0.20);
+                // + shipping = Math.round(subtotal * 0.25);
+                // So < 200 is 25%.
+                // 200-500 is 15%.
+                // 500-1000 is 10%.
+            } else if (subtotal <= 500 && subtotal > 0) {
+                shipping = Math.round(subtotal * 0.15);
+            } else if (subtotal < 1000 && subtotal > 0) {
+                shipping = Math.round(subtotal * 0.1);
+            }
+
+            return subtotal - discount + shipping;
+        }
+
+        const total = getCartTotal();
+        document.getElementById('displayTotal').textContent = '₹' + total.toLocaleString('en-IN');
+
+        function selectPayment(method) {
+            if (method === 'card') {
+                window.location.href = 'card-payment.html';
+            } else if (method === 'cod') {
+                if (confirm('Place order with Cash on Delivery?')) {
+                    processOrder('Cash on Delivery');
+                }
+            }
+        }
+
+        function processOrder(paymentMethod) {
+            // Save to Orders
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const currentUser = localStorage.getItem('currentUser');
+
+            const newOrder = {
+                id: '#ORD-' + Math.floor(100000 + Math.random() * 900000),
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                status: 'Processing',
+                total: '₹' + getCartTotal().toLocaleString('en-IN'),
+                paymentMethod: paymentMethod,
+                userEmail: currentUser,
+                items: cart
+            };
+
+            orders.unshift(newOrder);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            // Clear Cart
+            localStorage.setItem('cart', '[]');
+
+            alert('Order Placed Successfully!');
+            window.location.href = 'orders.html';
+        }
+    </script>
+</body>
+
+</html>
